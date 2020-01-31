@@ -1,3 +1,4 @@
+var LivingCreature=require("./LivCr.js");
 module.exports = class GrassEater extends LivingCreature {
     constructor(x, y) {
         super(x, y);
@@ -5,31 +6,9 @@ module.exports = class GrassEater extends LivingCreature {
 
     }
 
-
-    updateCoordinates() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-    }
-
-
-    chooseCell(character) {
-        this.updateCoordinates();
-        return super.chooseCell(character);
-    }
-
-
-
-
     move() {
 
+        
         var emptyCells = this.chooseCell(0);
         var cօord = random(emptyCells); // 4,3
 

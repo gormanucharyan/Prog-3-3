@@ -1,3 +1,4 @@
+var LivingCreature=require("./LivCr.js");
 module.exports = class Stone extends LivingCreature {
    
     move() {

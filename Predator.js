@@ -1,35 +1,18 @@
+var LivingCreature=require("./LivCr.js");
 module.exports = class Predator extends LivingCreature {
     constructor(x, y) {
         super(x, y);
         this.energy = 22;
     }
-    updateCoordinates() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-    }
-
-    chooseCell(character) {
-        this.updateCoordinates();
-        return super.chooseCell(character);
-    }
-
     move() {
 
 
         var emptyCells = this.chooseCell(0);
-        var cօord = random(emptyCells);
+        var coord = random(emptyCells);
 
-        if (cօord) {
-            var x = cօord[0];
-            var y = cօord[1];
+        if (coord) {
+            var x = coord[0];
+            var y = coord[1];
 
 
             matrix[y][x] = 3;

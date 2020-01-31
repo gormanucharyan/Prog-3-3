@@ -1,3 +1,4 @@
+var LivingCreature=require("./LivCr.js");
 module.exports = class Grass extends LivingCreature {
 
     mul() {

@@ -1,24 +1,9 @@
-module.exports = class Human {
+var LivingCreature = require("./LivCr.js");
+module.exports = class Human extends LivingCreature {
     constructor(x, y) {
         super(x, y);
         this.energy = 25;
 
-    }
-    updateCoordinates() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-    }
-    chooseCell(character) {
-        this.updateCoordinates();
-        return super.chooseCell(character);
     }
 
     move() {
@@ -38,11 +23,11 @@ module.exports = class Human {
             this.y = y;
         }
         var emptyCells1 = this.chooseCell(1);
-        var cօord1 = random(emptyCells1);
+        var coord1 = random(emptyCells1);
 
-        if (cօord1) {
-            var x = cօord1[0];
-            var y = cօord1[1];
+        if (coord1) {
+            var x = coord1[0];
+            var y = coord1[1];
 
 
             matrix[y][x] = 5;
