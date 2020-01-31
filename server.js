@@ -15,7 +15,6 @@ var GrassEater = require("./GrassEater");
 var Human = require("./Human");
 var Predator = require("./Predator");
 var Stone = require("./Stone");
-
 grassArr = [];
 eatersArr = [];
 predatorArr = [];
