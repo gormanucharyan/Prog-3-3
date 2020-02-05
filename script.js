@@ -1,13 +1,14 @@
-var side=20;
-function setup() {
+var socket = io();
+var side = 20;
+var matrix = [];
 
+function setup() {
 	noStroke();
-	frameRate(5);
-	createCanvas(matrix[0].length * side, matrix.length * side);
+	createCanvas(50 * side,50 * side);
 	background('#acacac');
 }
+
 function draw() {
-	
 	background('#acacac');
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix[i].length; j++) {
@@ -38,11 +39,10 @@ function draw() {
 			}
 		}
 	}
-	
-
-
-
-
 }
 
+function handleMatrix(m) {
+	matrix = m;
+}
 
+socket.on('matrix', handleMatrix);

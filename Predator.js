@@ -1,4 +1,4 @@
-var LivingCreature=require("./LivCr.js");
+var LivingCreature = require("./LivCr.js");
 module.exports = class Predator extends LivingCreature {
     constructor(x, y) {
         super(x, y);
@@ -8,7 +8,8 @@ module.exports = class Predator extends LivingCreature {
 
 
         var emptyCells = this.chooseCell(0);
-        var coord = random(emptyCells);
+        var rand = Math.floor(Math.random() * emptyCells.length);
+        var coord = emptyCells[rand];
 
         if (coord) {
             var x = coord[0];
@@ -25,7 +26,8 @@ module.exports = class Predator extends LivingCreature {
         }
 
         var emptyCells1 = this.chooseCell(1);
-        var coord1 = random(emptyCells1);
+        var rand1 = Math.floor(Math.random() * emptyCells1.length);
+        var coord1 = emptyCells1[rand1];
         if (coord1) {
             var x = coord1[0];
             var y = coord1[1];
@@ -39,7 +41,8 @@ module.exports = class Predator extends LivingCreature {
     eat() {
 
         var eaterCells = this.chooseCell(2);
-        var coord = random(eaterCells);
+        var rand = Math.floor(Math.random() * eaterCells.length);
+        var coord = eaterCells[rand];
 
 
         if (coord) {
@@ -87,14 +90,15 @@ module.exports = class Predator extends LivingCreature {
     mul() {
 
         var emptyCells = this.chooseCell(0);
-        var coord = random(emptyCells);
-
+        //bug fixed
+        var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        //**/*/ */
 
         if (coord) {
             var x = coord[0];
             var y = coord[1];
 
-            var newpredator = new Gishatich(x, y);
+            var newpredator = new Predator(x, y);
             predatorArr.push(newpredator);
 
 

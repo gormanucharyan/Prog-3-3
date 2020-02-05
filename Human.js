@@ -8,11 +8,12 @@ module.exports = class Human extends LivingCreature {
 
     move() {
         var emptyCells = this.chooseCell(0);
-        var cօord = random(emptyCells);
+        var rand = Math.floor(Math.random() * emptyCells.length);
+        var coord = emptyCells[rand];
 
-        if (cօord) {
-            var x = cօord[0];
-            var y = cօord[1];
+        if (coord) {
+            var x = coord[0];
+            var y = coord[1];
 
 
             matrix[y][x] = 5;
@@ -23,7 +24,8 @@ module.exports = class Human extends LivingCreature {
             this.y = y;
         }
         var emptyCells1 = this.chooseCell(1);
-        var coord1 = random(emptyCells1);
+        var rand1 = Math.floor(Math.random() * emptyCells1.length);
+        var coord1 = emptyCells[rand1];
 
         if (coord1) {
             var x = coord1[0];
@@ -42,7 +44,8 @@ module.exports = class Human extends LivingCreature {
     eat() {
 
         var eaterCells1 = this.chooseCell(2);
-        var coord1 = random(eaterCells1);
+        var rand1 = Math.floor(Math.random() * eaterCells1.length);
+        var coord1 = eaterCells1[rand1];
 
         if (coord1) {
             var x = coord1[0];
@@ -87,7 +90,8 @@ module.exports = class Human extends LivingCreature {
 
 
         var eaterCells2 = this.chooseCell(3);
-        var coord2 = random(eaterCells2);
+        var rand2 = Math.floor(Math.random() * eaterCells2.length);
+        var coord2 = eaterCells2[rand2];
         if (coord2) {
             var x = coord2[0];
             var y = coord2[1];
@@ -106,9 +110,9 @@ module.exports = class Human extends LivingCreature {
             this.energy++;
 
 
-            for (var i in gishatichArr) {
-                if (x == gishatichArr[i].x && y == gishatichArr[i].y) {
-                    gishatichArr.splice(i, 1);
+            for (var i in humanArr) {
+                if (x == humanArr[i].x && y == humanArr[i].y) {
+                    humanArr.splice(i, 1);
                 }
             }
 
@@ -132,7 +136,8 @@ module.exports = class Human extends LivingCreature {
     mul() {
 
         var emptyCells = this.chooseCell(0);
-        var coord = random(emptyCells);
+        var rand = Math.floor(Math.random() * emptyCells.length);
+        var coord = emptyCells[rand];
 
 
         if (coord) {

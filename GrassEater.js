@@ -1,4 +1,4 @@
-var LivingCreature=require("./LivCr.js");
+var LivingCreature = require("./LivCr.js");
 module.exports = class GrassEater extends LivingCreature {
     constructor(x, y) {
         super(x, y);
@@ -8,13 +8,14 @@ module.exports = class GrassEater extends LivingCreature {
 
     move() {
 
-        
-        var emptyCells = this.chooseCell(0);
-        var cօord = random(emptyCells); // 4,3
 
-        if (cօord) {
-            var x = cօord[0];
-            var y = cօord[1];
+        var emptyCells = this.chooseCell(0);
+        var rand = Math.floor(Math.random() * emptyCells.length);
+        var coord = emptyCells[rand];
+
+        if (coord) {
+            var x = coord[0];
+            var y = coord[1];
 
 
             matrix[y][x] = 2;
@@ -31,13 +32,17 @@ module.exports = class GrassEater extends LivingCreature {
     eat() {
 
         var grassCells = this.chooseCell(1);
-        var coord = random(grassCells);
+        //console.log("grassCells", grassCells);
 
+        var rand = Math.floor(Math.random() * grassCells.length);
+        var coord = grassCells[rand];
+        //console.log("coord", coord);
 
         if (coord) {
             var x = coord[0];
             var y = coord[1];
-
+            // console.log("x", x);
+            // console.log("y", y);
 
             matrix[y][x] = 2;
             matrix[this.y][this.x] = 0;
@@ -80,7 +85,8 @@ module.exports = class GrassEater extends LivingCreature {
     mul() {
 
         var emptyCells = this.chooseCell(0);
-        var coord = random(emptyCells);
+        var rand = Math.floor(Math.random() * emptyCells.length);
+        var coord = emptyCells[rand];
 
 
         if (coord) {

@@ -4,11 +4,12 @@ module.exports = class Stone extends LivingCreature {
     move() {
 
         var emptyCells = this.chooseCell(0);
-        var cօord = random(emptyCells);
+        var rand = Math.floor(Math.random()*emptyCells.length);
+        var coord = emptyCells[rand];
 
-        if (cօord) {
-            var x = cօord[0];
-            var y = cօord[1];
+        if (coord) {
+            var x = coord[0];
+            var y = coord[1];
 
 
             matrix[y][x] = 4;

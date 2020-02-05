@@ -1,11 +1,12 @@
-var LivingCreature=require("./LivCr.js");
+var LivingCreature = require("./LivCr.js");
 module.exports = class Grass extends LivingCreature {
 
     mul() {
         this.multiply++;
         if (this.multiply >= 8) {
             var emptyCells = this.chooseCell(0);
-            var coord = random(emptyCells);
+            var rand = Math.floor(Math.random() * emptyCells.length);
+            var coord=emptyCells[rand];
             if (coord) {
                 var x = coord[0];
                 var y = coord[1];
