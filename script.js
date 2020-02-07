@@ -1,12 +1,23 @@
 var socket = io();
 var side = 20;
 var matrix = [];
-
+socket.on('matrix', function (data) {
+	matrix = data;
+});
 function setup() {
 	noStroke();
-	createCanvas(50 * side,50 * side);
+	createCanvas(50 * side, 50 * side);
 	background('#acacac');
 }
+// var btn1 = document.getElementById("btn1");
+// btn1.addEventListener('click', () =>{
+// 	socket.emit('b1');
+// });
+
+// var btn2 = document.getElementById("btn2");
+// btn1.addEventListener('click', (data) =>{
+// 	socket.emit('b2',data);
+// });
 
 function draw() {
 	background('#acacac');
@@ -41,8 +52,10 @@ function draw() {
 	}
 }
 
-function handleMatrix(m) {
-	matrix = m;
-}
+// function handleMatrix(m) {
+// 	matrix = m;
+// }
 
-socket.on('matrix', handleMatrix);
+function func() {
+	socket.emit("text");
+}

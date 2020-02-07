@@ -90,9 +90,9 @@ module.exports = class Predator extends LivingCreature {
     mul() {
 
         var emptyCells = this.chooseCell(0);
-        //bug fixed
+       
         var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-        //**/*/ */
+        
 
         if (coord) {
             var x = coord[0];

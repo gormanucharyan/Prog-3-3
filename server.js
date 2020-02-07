@@ -1,5 +1,3 @@
-// Math.floor(Math.random()*emptyCells.length)
-
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
@@ -11,9 +9,6 @@ app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 
-server.listen(3000,() => {
-    console.log("Port is connected");
-});
 
 var Grass = require("./Grass");
 var GrassEater = require("./GrassEater");
@@ -29,6 +24,87 @@ stoneArr = [];
 humanArr = [];
 
 matrix = makeMatrix();
+
+
+io.on('connection', function (socket) {
+    socket.on('text', function () {
+        // var x = Math.floor(Math.random() * matrix.length);
+        // var y = Math.floor(Math.random() * matrix.length);
+        // var directions = [
+        //     [x - 1, y - 1],
+        //     [x, y - 1],
+        //     [x + 1, y - 1],
+        //     [x - 1, y],
+        //     [x + 1, y],
+        //     [x - 1, y + 1],
+        //     [x, y + 1],
+        //     [x + 1, y + 1]
+            // [x - 2, y - 2],
+            // [x + 1, y - 2],
+            // [x + 2, y - 2],
+            // [x - 2, y + 1],
+            // [x + 2, y + 1],
+            // [x - 2, y + 2],
+            // [x + 1, y + 2],
+            // [x + 2, y + 2]
+        // // ];
+        // for (var i in directions) {
+        //     var x = directions[i][0];
+        //     var y = directions[i][1];
+        //     if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+
+        //         matrix[y][x] = 0;
+
+        //         if (matrix[y][x] == 1) {
+        //             for (var j in grassArr) {
+        //                 if (x == grassArr[j].x && y == grassArr[j].y) {
+        //                     grassArr.splice(j, 1);
+        //                 }
+        //             }
+        //         }
+    
+        //         else if (matrix[y][x] == 2) {
+        //             for (var j in eatersArr) {
+        //                 if (x == eatersArr[j].x && y == eatersArr[j].y) {
+        //                     eatersArr.splice(j, 1);
+        //                 }
+        //             }
+        //         }
+        //         else if (matrix[y][x] == 3) {
+        //             for (var j in predatorArr) {
+        //                 if (x == predatorArr[j].x && y == predatorArr[j].y) {
+        //                     predatorArr.splice(j, 1);
+        //                 }
+        //             }
+        //         }
+        //         else if (matrix[y][x] == 4) {
+        //             for (var j in stoneArr) {
+        //                 if (x == stoneArr[j].x && y == stoneArr[j].y) {
+        //                     stoneArr.splice(j, 1);
+        //                 }
+        //             }
+    
+        //         }
+        //         else if (matrix[y][x] == 5) {
+        //             for (var j in humanArr) {
+        //                 if (x == humanArr[j].x && y == humanArr[j].y) {
+        //                     humanArr.splice(j, 1);
+        //                 }
+        //             }
+    
+        //         }
+
+
+        //     }
+
+        // }
+    });
+});
+
+
+server.listen(3000, () => {
+    console.log("Port is connected");
+});
 
 setInterval(game, 500);
 
@@ -75,20 +151,20 @@ function addMatrix() {
 
 function game() {
 
-    while (predatorArr.length > 100) {
-        predatorArr[Math.random() * predatorArr.length].die();
-    }
-    while (eatersArr.length > 200) {
-        eatersArr[Math.random() * eatersArr.length].die();
-    }
+    // while (predatorArr.length > 100) {
+    //     predatorArr[Math.random() * predatorArr.length].die();
+    // }
+    // while (eatersArr.length > 200) {
+    //     eatersArr[Math.random() * eatersArr.length].die();
+    // }
 
-    while (humanArr.length > 100) {
-        humanArr[Math.random() * humanArr.length].die();
-    }
+    // while (humanArr.length > 100) {
+    //     humanArr[Math.random() * humanArr.length].die();
+    // }
 
-    while (stoneArr.length > 20) {
-        stoneArr[Math.random() * stoneArr.length].die();
-    }
+    // while (stoneArr.length > 20) {
+    //     stoneArr[Math.random() * stoneArr.length].die();
+    // }
 
 
 
@@ -166,6 +242,3 @@ function game() {
 
     io.sockets.emit('matrix', matrix);
 }
-
-
-

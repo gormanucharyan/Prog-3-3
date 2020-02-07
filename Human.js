@@ -110,9 +110,9 @@ module.exports = class Human extends LivingCreature {
             this.energy++;
 
 
-            for (var i in humanArr) {
-                if (x == humanArr[i].x && y == humanArr[i].y) {
-                    humanArr.splice(i, 1);
+            for (var i in predatorArr) {
+                if (x == predatorArr[i].x && y == predatorArr[i].y) {
+                    predatorArr.splice(i, 1);
                 }
             }
 
