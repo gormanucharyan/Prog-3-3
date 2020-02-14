@@ -27,8 +27,6 @@ function drawM(obj) {
 			}
 			else if (matrix[i][j] == 5) {
 				fill('whitesmoke');
-			} else if(matrix[i][j] == 7){
-				fill('#acacac')
 			}
 			else{
 				fill('#acacac');

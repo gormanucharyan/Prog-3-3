@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
@@ -25,7 +26,7 @@ humanArr = [];
 
 matrix = makeMatrix();
 
-//BOMB FUNCTION//
+
 io.on('connection', function (socket) {
     socket.on('text1', function () {
         var x1 = Math.floor(Math.random() * matrix[0].length);
@@ -42,7 +43,9 @@ io.on('connection', function (socket) {
             [x1 + 1, y1 + 1],
             [x1, y1]
         ];
+
         for (var i in directions) {
+
             var x = directions[i][0];
             var y = directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
@@ -64,13 +67,6 @@ io.on('connection', function (socket) {
                             predatorArr.splice(j, 1);
                         }
                     }
-                } else if (matrix[y][x] == 4) {
-                    for (var j in stoneArr) {
-                        if (x == stoneArr[j].x && y == stoneArr[j].y) {
-                            stoneArr.splice(j, 1);
-                        }
-                    }
-
                 } else if (matrix[y][x] == 5) {
                     for (var j in humanArr) {
                         if (x == humanArr[j].x && y == humanArr[j].y) {
@@ -79,7 +75,9 @@ io.on('connection', function (socket) {
                     }
 
                 }
-                matrix[y][x] = 7;
+                matrix[y][x] = 4;
+                var stone1 = new Stone(x, y);
+                stoneArr.push(stone1);
             }
 
         }
@@ -87,54 +85,24 @@ io.on('connection', function (socket) {
     socket.on('text2', function () {
         for (let y2 = 0; y2 < 50; y2++) {
             for (let x2 = 0; x2 < 50; x2++) {
-                setTimeout(function () {
-                    if (x2 == y2) {
-                        for (let i = 0; i <= x2; i++) {
-                            if (matrix[y2][x2] == 1) {
-                                for (var j in grassArr) {
-                                    if (x2 == grassArr[j].x && y2 == grassArr[j].y) {
-                                        grassArr.splice(j, 1);
-                                    }
-                                }
-                            } else if (matrix[y2][x2] == 2) {
-                                for (var j in eatersArr) {
-                                    if (x2 == eatersArr[j].x && y2 == eatersArr[j].y) {
-                                        eatersArr.splice(j, 1);
-                                    }
-                                }
-                            } else if (matrix[y2][x2] == 3) {
-                                for (var j in predatorArr) {
-                                    if (x2 == predatorArr[j].x && y2 == predatorArr[j].y) {
-                                        predatorArr.splice(j, 1);
-                                    }
-                                }
-                            } else if (matrix[y2][x2] == 4) {
-                                for (var j in stoneArr) {
-                                    if (x2 == stoneArr[j].x && y2 == stoneArr[j].y) {
-                                        stoneArr.splice(j, 1);
-                                    }
-                                }
 
-                            } else if (matrix[y2][x2] == 5) {
-                                for (var j in humanArr) {
-                                    if (x2 == humanArr[j].x && y2 == humanArr[j].y) {
-                                        humanArr.splice(j, 1);
-                                    }
-                                }
-
-                            }
-                            matrix[y2][x2 - i] = 0;
-                            matrix[y2 - i][x2] = 0;
-                            matrix[y2][x2] = 0;
+                if (matrix[y2][x2] == 4) {
+                    for (var j in stoneArr) {
+                        if (x2 == stoneArr[j].x && y2 == stoneArr[j].y) {
+                            stoneArr.splice(j, 1);
                         }
                     }
-                }, 1000);
+                    matrix[y2][x2] = 0;
+
+                }
+
+
             }
         }
 
 
 
-    })
+     })
 });
 
 
@@ -147,12 +115,12 @@ server.listen(3000, () => {
 });
 
 setInterval(game, 500);
+setInterval(main, 500);
 
 addMatrix();
-var obj = {
-    m: matrix,
-}
+var obj = { m: matrix, };
 
+var object = { "info": [] };
 
 
 function makeMatrix() {
@@ -195,6 +163,18 @@ function addMatrix() {
         }
     }
 }
+function main() {
+    var file = "Statics.json";
+    object.info.push({ "The amounts of grassArr": grassArr.length });
+    object.info.push({ "The amounts of eatersArr": eatersArr.length });
+    object.info.push({ "The amounts of predatorArr": predatorArr.length });
+    object.info.push({ "The amounts of stoneArr": stoneArr.length });
+    object.info.push({ "The amounts of humanArr": humanArr.length });
+
+    fs.writeFileSync(file, JSON.stringify(object, null, 3));
+   
+     
+}
 
 function game() {
 
@@ -218,17 +198,17 @@ function game() {
     for (var i in grassArr) {
         grassArr[i].mul();
     }
-    // for (var i in eatersArr) {
-    //     eatersArr[i].eat();
-    // }
-    // for (var i in predatorArr) {
-    //     predatorArr[i].eat();
-    // }
-    // for (var i in humanArr) {
-    //     humanArr[i].eat();
-    // }
+    for (var i in eatersArr) {
+        eatersArr[i].eat();
+    }
+    for (var i in predatorArr) {
+        predatorArr[i].eat();
+    }
+    for (var i in humanArr) {
+        humanArr[i].eat();
+    }
 
-    if (eatersArr.length <= 40) {
+    if (eatersArr.length <= 15) {
 
         for (var x = 0; x < 100; x++) {
             var i = Math.floor(Math.random() * matrix.length);
@@ -241,9 +221,9 @@ function game() {
         }
     }
 
-    if (grassArr.length <= 20) {
+    if (grassArr.length <= 40) {
 
-        for (var x = 0; x < 550; x++) {
+        for (var x = 0; x < 300; x++) {
 
             var i = Math.floor(Math.random() * matrix.length);
             var j = Math.floor(Math.random() * matrix.length);
@@ -255,7 +235,7 @@ function game() {
         }
     }
 
-    if (predatorArr.length <= 20) {
+    if (predatorArr.length <= 10) {
 
         for (var x = 0; x < 150; x++) {
 
@@ -271,7 +251,7 @@ function game() {
         }
     }
 
-    if (humanArr.length <= 20) {
+    if (humanArr.length <= 5) {
 
         for (var x = 0; x < 80; x++) {
 
